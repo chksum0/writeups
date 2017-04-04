@@ -92,7 +92,7 @@ Reading a bit on HFS reveals that it works with a catalog file (It's in the song
 What immediately pops up is the node numbered `1337` (looks like a hint..), There is a gap of 1311 between it and the previous node `26`, (That explains the deleted numbered 1-1311 files in the logs..).
 Going over the file nodes, reveals nodeID `1337` belongs to the file `d`. After examining this file's metadata carefully, I noticed it has a [Resource Fork](https://en.wikipedia.org/wiki/Resource_fork), which is sort of macOS's version of alternate data stream in Windows. AHA! so this is what _"people tend to overlook"_.
 
-![alt](https://github.com/chksum0/writeups/tree/master/confidence_teaser_2017/Index/images/hfsexplorer_resourcefork.png)
+![alt](images/hfsexplorer_resourcefork.png)
 
 Also, a bit more digging reveals that nodeID `19` (`iNode19` file) is the only file with a data fork, meaning its the original flag.png file. All the other "flag" duplicates are hard links to it.
 
@@ -102,7 +102,7 @@ Mounting the drive on a mac and using the native command `index.img/..namedfork/
 
 After getting stuck and frustrated for an hour or two, doing some crazy [HFS research here](https://developer.apple.com/legacy/library/technotes/tn/tn1150.html), I got a great advice and downloaded this [HFS drive template for 010 editor](https://www.sweetscape.com/010editor/repository/files/Drive.bt). This allowed me to actually see the resource fork's location and size in blocks on disk. The resource fork's data is split in 2 locations (extents) on disk. Looking at the volume header we can see the block size is `4096` bytes, and the first extent's startBlock is `5773`, so the address in bytes is `0x168D000`.
 
-![alt](https://github.com/chksum0/writeups/tree/master/confidence_teaser_2017/Index/images/010_resourcefork.png)
+![alt](images/010_resourcefork.png)
 
 And what do you know... it's a 64bit mach-o binary file signature. Useless automated forensic tools!
 Extracting the 2 data pieces, appending them together to a single file, and opening it in IDA, shows its a golang binary. More precisely THE golang binary I was looking for!
