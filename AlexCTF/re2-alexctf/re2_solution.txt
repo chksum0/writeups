@@ -1,0 +1,4 @@
+set a breakpoint at : 0000000000400C75
+in this address there is a comparison of the input flag with the actual flag (char by char)
+change the input flag array while the process is running to match the actual flag, and save all the chars of the flag
+at the end of the process you'll have the flag

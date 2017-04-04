@@ -1,0 +1,3 @@
+Open the exe in ida
+open view -> subviews-> strings
+the flag is :AlexCTF{Y0u_h4v3_45t0n15h1ng_futur3_1n_r3v3r5ing} 
