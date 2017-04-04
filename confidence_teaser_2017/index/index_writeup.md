@@ -92,7 +92,7 @@ Reading a bit on HFS reveals that it works with a catalog file (It's in the song
 What immediately pops up is the node numbered `1337` (looks like a hint..), There is a gap of 1311 between it and the previous node `26`, (That explains the deleted numbered 1-1311 files in the logs..).
 Going over the file nodes, reveals nodeID `1337` belongs to the file `d`. After examining this file's metadata carefully, I noticed it has a [Resource Fork](https://en.wikipedia.org/wiki/Resource_fork), which is sort of macOS's version of alternate data stream in Windows. AHA! so this is what _"people tend to overlook"_.
 
-![alt](images/hfsexplorer_resourcefork.png)
+![alt](images/hfsexplorer_resourcefork2.png)
 
 Also, a bit more digging reveals that nodeID `19` (`iNode19` file) is the only file with a data fork, meaning its the original flag.png file. All the other "flag" duplicates are hard links to it.
 
