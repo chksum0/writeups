@@ -1,4 +1,4 @@
-# Encription Service Solution
+# Crypto Solution
 
 This challenge was a huge fun.
 
