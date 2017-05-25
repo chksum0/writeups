@@ -15,7 +15,7 @@ The challenge is written in C which implies some low level vulnerability. We too
 
 Now, applying our vulnerability to operation 1 and sending zero length enables us to write a zero byte to weherever we want within the _keystore_.
 From here, our algorithm is simple. We regenerate the key in index 1 with sizes from 0 to 15 and each time fill the key with zeros. Then we load this key to the `current_key` and encrypt a plain text with the current key.
-The result is that with have `AES(known_plain_text, '0' * len + original_key[len:])` for each length between zero and 15. We can now brute force the cipher text in reverse order and deduce the bytes of the original key one at a time.
+The result is that we have `AES(known_plain_text, '0' * len + original_key[len:])` for each length between zero and 15. We can now brute force the cipher text in reverse order and deduce the bytes of the original key one at a time.
 Then, we decrypt the original flag with the key we have and we are done.
 
 ## Original Challenge
