@@ -50,7 +50,7 @@ and now we brute-force every possible last byte, sending:
 IV = create_iv('hitc', iv_remote, 'echo', last_byte)
 Cipher = c_flag[:16]
 ```
-when we hit the correct byte, the server response is identical to the empty response, because the decrypted last byte makes the `unpad` function remove exactly 14 bytes and the bytes that remain are the `echo` command.
+when we hit the correct byte, the server response is identical to the empty response, because the decrypted last byte makes the `unpad` function remove exactly 12 bytes and the bytes that remain are the `echo` command.
 
 After finding the last byte in the first block, we can brute-force the remaining bytes in the block on at a time. We create a message that start with the `echo` command and continues with the remaining known bytes of the flag plus the guessed byte. For example, if we know the flag starts with `hitcon{` and our guess is `0`, we send a message which is decrypted to `echoon{0`. The server response is the encryption of `on{0`. Next, we try to convert the flag's first block to the same message, sending `create_iv('hitcon{0', iv_remote, 'echoon{0' , last_byte)` as IV and `c_flag[:16]` as a cipher. If `0` is indeed the correct character, the service responds with the same cipher and we can check it by comparison to the cipher we received earlier.
 
