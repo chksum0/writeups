@@ -40,7 +40,7 @@ Next, we alter the `create_iv` function to allow forcing the `msg` last byte:
 ```python
 def create_iv(msg, iv, msg_new, last_byte=-1):
     msg = pad(msg)
-    if -1 != size:
+    if -1 != last_byte:
         msg = msg[:-1] + last_byte
 
    return xor(iv, msg, pad(msg_new))
